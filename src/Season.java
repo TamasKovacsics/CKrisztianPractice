@@ -4,20 +4,20 @@ import java.util.List;
 
 public class Season {
 
-    private List<Car> cars;
+    private List<Vehicle> vehicles;
     private List<Track> tracks;
 
-    public Season(List<Car> car, List<Track> tracks) {
-        this.cars = car;
+    public Season(List<Vehicle> vehicle, List<Track> tracks) {
+        this.vehicles = vehicle;
         this.tracks = tracks;
     }
 
-    public List<Car> getCar() {
-        return cars;
+    public List<Vehicle> getVehicle() {
+        return vehicles;
     }
 
-    public void setCar(List<Car> car) {
-        this.cars = car;
+    public void setVehicle(List<Vehicle> vehicle) {
+        this.vehicles = vehicle;
     }
 
     public List<Track> getTracks() {
@@ -32,26 +32,29 @@ public class Season {
     public String toString() {
         runSeason();
         return "Season{" +
-                "\n1# = " + cars.get(0) +
-                "\n2# = " + cars.get(1) +
-                "\n3# = " + cars.get(2) +
+                "\n1# = " + vehicles.get(0) +
+                "\n2# = " + vehicles.get(1) +
+                "\n3# = " + vehicles.get(2) +
+                "\n4# = " + vehicles.get(3) +
+                "\n5# = " + vehicles.get(4) +
+                "\n6# = " + vehicles.get(5) +
                 '}';
     }
 
-    public List<Car> runSeason () {
+    public List<Vehicle> runSeason () {
 
         for(int i = 0; i<tracks.size(); i++)
         {
-            tracks.get(i).verseny(cars);
+            tracks.get(i).verseny(vehicles);
         }
 
-        Collections.sort(getCar(), new Comparator<Car>() {
+        Collections.sort(getVehicle(), new Comparator<Vehicle>() {
             @Override
-            public int compare(Car o1, Car o2) {
+            public int compare(Vehicle o1, Vehicle o2) {
                 return o2.getPoints() - o1.getPoints();
             }
         });
 
-        return cars;
+        return vehicles;
     }
 }

@@ -1,4 +1,4 @@
-public class Car {
+public class Car extends Vehicle {
 
     private String marka;
     private String tipus;
@@ -9,6 +9,7 @@ public class Car {
         return points;
     }
 
+    @Override
     public void addPoints(int points) {
         this.points = this.points + points;
     }
@@ -59,6 +60,7 @@ public class Car {
 
     }
 
+    @Override
     public int futamIdo(Track track) {
 
         return track.getHossz()/sebesseg + track.getKanyarhossz()/kanyarSebesseg;
@@ -74,7 +76,4 @@ public class Car {
                 ", points=" + points +
                 '}';
     }
-
-
-
 }

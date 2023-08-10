@@ -28,25 +28,25 @@ public class Track {
         this.kanyarhossz = kanyarhossz;
     }
 
-    public List<Car> verseny (List<Car> cars) {
-        Collections.sort(cars, new Comparator<Car>() {
+    public List<Vehicle> verseny (List<Vehicle> vehicles) {
+        Collections.sort(vehicles, new Comparator<Vehicle>() {
             @Override
-            public int compare(Car o1, Car o2) {
+            public int compare(Vehicle o1, Vehicle o2) {
                 return o1.futamIdo(Track.this) - o2.futamIdo(Track.this);
             }
         });
 
-        for(int i = 0; i<cars.size(); i++)
+        for(int i = 0; i<vehicles.size(); i++)
         {
             if(i == 0)
-                cars.get(i).addPoints(5);
+                vehicles.get(i).addPoints(5);
             else if(i == 1)
-                cars.get(i).addPoints(3);
+                vehicles.get(i).addPoints(3);
             else
-                cars.get(i).addPoints(1);
+                vehicles.get(i).addPoints(1);
         }
 
-        return cars;
+        return vehicles;
     }
 
 }
