@@ -20,7 +20,7 @@ import java.util.Map;
 @ExtendWith(LoggingClass.class)
 @ExtendWith(CaptureScreenshot.class)
 public class TestBase {
-    protected static WebDriver driver;
+    protected WebDriver driver;
 
     public static final Logger logger = LoggerFactory.getLogger(TestBase.class);;
 
@@ -61,7 +61,7 @@ public class TestBase {
         }
     }
 
-    public static WebDriver getDriver() {
+    public WebDriver getDriver() {
         return driver;
     }
 }

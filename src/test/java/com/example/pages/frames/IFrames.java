@@ -22,7 +22,7 @@ public class IFrames extends BasePage {
 
     private String getTextFromIFrame(WebElement element) {
         driver.switchTo().frame(element);
-        return driver.findElement(By.cssSelector("p")).getText();
+        return waitForElementToAppear(By.cssSelector("p")).getText();
     }
 
     public void getTexts() {

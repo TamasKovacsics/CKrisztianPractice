@@ -1,5 +1,6 @@
 package com.example.basepage;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,11 +23,11 @@ public abstract class BasePage extends LoadableComponent {
 
     }
 
-    public void waitForElementToAppear(WebElement element) {
+    public WebElement waitForElementToAppear(WebElement element) {
         for(int i = 0; i <= 150; i++) {
             try {
                 element.getText();
-                return;
+                return element;
             } catch (NoSuchElementException e) {
                 try {
                     Thread.sleep(200);
@@ -35,6 +36,23 @@ public abstract class BasePage extends LoadableComponent {
                 }
             }
         }
+        throw new AssertionError("Element did not appear");
+    }
+
+    public WebElement waitForElementToAppear(By locator) {
+        for(int i = 0; i <= 150; i++) {
+            try {
+                driver.findElement(locator).getText();
+                return driver.findElement(locator);
+            } catch (NoSuchElementException e) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }
+        throw new AssertionError("Element did not appear");
     }
 
     public void waitForElementToBeDisplayed(WebElement element) {

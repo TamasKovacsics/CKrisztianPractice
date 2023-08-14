@@ -29,3 +29,6 @@ bin/
 .DS_Store
 .idea
 Practice.iml
+target/maven-status
+target/surefire-reports
+target
