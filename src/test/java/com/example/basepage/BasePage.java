@@ -58,4 +58,13 @@ public abstract class BasePage extends LoadableComponent {
             }
         }
     }
+
+    public void sleep(int milis) {
+        try {
+            Thread.sleep(milis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

@@ -1,0 +1,35 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{64} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <Key>testName</Key>
+            <DefaultValue>default</DefaultValue>
+        </discriminator>
+        <sift>
+            <appender name="FILE-Inner" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <rollingPolicy class = "ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <FileNamePattern>C:\Users\Krisz\Downloads\Log\${testName}.log</FileNamePattern>
+                </rollingPolicy>
+                <layout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{64} - %msg%n</pattern>
+                </layout>
+            </appender>
+        </sift>
+    </appender>
+
+
+    <logger name="ch.qos.logback" level="OFF" />
+    <logger name="org.asynchttpclient.netty" level="OFF" />
+    <logger name="io.netty" level="OFF" />
+
+    <root level="all">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>
