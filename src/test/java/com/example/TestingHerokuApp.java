@@ -1,16 +1,26 @@
 package com.example;
 
+import com.example.constants.Constants;
 import com.example.pages.*;
 import com.example.pages.dynamicloading.DynamicLoadingPage;
 import com.example.pages.dynamicloading.DynamicLoadingPageOne;
 import com.example.pages.dynamicloading.DynamicLoadingPageTwo;
 import com.example.pages.formauth.FormAuthPage;
 import com.example.pages.formauth.FormAuthSecurePage;
-import org.junit.Assert;
+import com.example.pages.frames.Frames;
+import com.example.pages.frames.IFrames;
+import com.example.pages.frames.NestedFrames;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.logging.LoggerFactory;
+import org.slf4j.Logger;
 import testbase.TestBase;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class TestingHerokuApp extends TestBase {
 
@@ -76,8 +86,8 @@ public class TestingHerokuApp extends TestBase {
     public void testFormAuth() {
         FormAuthPage formAuthPage = herokuAppMainPage.clickFormAuthLink();
 
-        formAuthPage.enterUsername(FormAuthPage.username);
-        formAuthPage.enterPassword(FormAuthPage.password);
+        formAuthPage.enterUsername(Constants.USERNAME);
+        formAuthPage.enterPassword(Constants.PASSWORD);
 
         FormAuthSecurePage formAuthSecurePage = formAuthPage.loginButtonClick();
 
@@ -85,14 +95,138 @@ public class TestingHerokuApp extends TestBase {
     }
 
     @Test
-    public void testFormAuthWrong() {
+    public void testFromAuthWrongUser() {
         FormAuthPage formAuthPage = herokuAppMainPage.clickFormAuthLink();
-        formAuthPage.enterUsername(FormAuthPage.username);
-        formAuthPage.enterPassword(FormAuthPage.wrongPassword);
+        formAuthPage.enterUsername(Constants.WRONGUSER);
+        formAuthPage.enterPassword(Constants.PASSWORD);
 
         formAuthPage = formAuthPage.loginButtonClickWrongCredentials();
-        Assert.assertEquals("Your password is invalid!\n×", formAuthPage.getErrorMessage());
+        Assertions.assertEquals("Your username is invalid!\n×", formAuthPage.getErrorMessage());
     }
 
+    @Test
+    public void testFormAuthWrongPass() {
+        FormAuthPage formAuthPage = herokuAppMainPage.clickFormAuthLink();
+        formAuthPage.enterUsername(Constants.USERNAME);
+        formAuthPage.enterPassword(Constants.WRONGPASS);
 
+        formAuthPage = formAuthPage.loginButtonClickWrongCredentials();
+        Assertions.assertEquals("Your password is invalid!\n×", formAuthPage.getErrorMessage());
+    }
+
+    @Test
+    public void testDragAndDrop() {
+        DragAndDrop dragAndDrop = herokuAppMainPage.clickDragAndDrop();
+
+        dragAndDrop.DragAndDropAction();
+    }
+
+    @Test
+    public void testEntryAd() {
+        EntryAd entryAd = herokuAppMainPage.clickEntryAd(true);
+
+        Assertions.assertTrue(entryAd.isAdVisible(), "The Entry Ad should be visible");
+        entryAd.entryAdClose();
+        Assertions.assertFalse(entryAd.isAdVisible(), "The Entry Ad should be hidden");
+
+
+        driver.get("https://the-internet.herokuapp.com");
+        herokuAppMainPage = new HerokuAppMainPage(driver);
+        entryAd = herokuAppMainPage.clickEntryAd(false);
+    }
+
+    @Test
+    public void testExitIntent() {
+        ExitIntent exitIntent = herokuAppMainPage.clickExitIntent();
+
+        exitIntent.moveOutOfViewport();
+    }
+
+    @Test
+    public void testFileDownload() {
+        FileDownload fileDownload = herokuAppMainPage.clickFileDownload();
+
+        //fileDownload.downloadFile();
+        //Assertions.assertTrue(fileDownload.getDownloadedFile(), "The file is not downloaded");
+    }
+
+    @Test
+    public void testFileUpload() {
+        FileUpload fileUpload = herokuAppMainPage.clickFileUpload();
+
+        fileUpload.uploadFile();
+        Assertions.assertEquals("File Uploaded!", fileUpload.getPageTitle());
+    }
+
+    @Test
+    public void testNestedFrames() {
+        Frames frames = herokuAppMainPage.clickFrames();
+        NestedFrames nestedFrames = frames.clickNestedFrames();
+
+        nestedFrames.getTexts();
+    }
+
+    @Test
+    public void testIFrames() {
+        Frames frames = herokuAppMainPage.clickFrames();
+        IFrames iFrames = frames.clickIFrames();
+
+        iFrames.getTexts();
+    }
+
+    @Test
+    public void testMultipleWindows() {
+        MultipleWindows multipleWindows = herokuAppMainPage.clickMultipleWindows();
+        multipleWindows.clickLink();
+    }
+
+    @Test
+    public void testHorizontalSlider() {
+        HorizontalSlider horizontalSlider = herokuAppMainPage.clickHorizontalSlider();
+
+        horizontalSlider.slideHorizontally(horizontalSlider.roundTheNumber(1.1));
+        Assertions.assertTrue(horizontalSlider.checkNumber(1.1), "You have to give a number between 0 and 5");
+        horizontalSlider.slideHorizontally(horizontalSlider.roundTheNumber(0.2));
+        Assertions.assertTrue(horizontalSlider.checkNumber(0.2), "You have to give a number between 0 and 5");
+        horizontalSlider.slideHorizontally(horizontalSlider.roundTheNumber(2.8));
+        Assertions.assertTrue(horizontalSlider.checkNumber(2.8), "You have to give a number between 0 and 5");
+        horizontalSlider.slideHorizontally(horizontalSlider.roundTheNumber(4.4));
+        Assertions.assertTrue(horizontalSlider.checkNumber(4.4), "You have to give a number between 0 and 5");
+    }
+
+    @Test
+    public void testHover() {
+        Hover hover = herokuAppMainPage.clickHover();
+        hover.clickFirst();
+        Assertions.assertTrue(hover.isFirstVisible(), "The cursor is missplaced");
+        hover.clickSecond();
+        Assertions.assertFalse(hover.isSecondVisible(), "The cursor is missplaced");
+        hover.clickThird();
+        Assertions.assertTrue(hover.isThirdVisible(), "The cursor is missplaced");
+    }
+
+    @Test
+    public void testInfiniteScroll() {
+        InfiniteScroll infiniteScroll = herokuAppMainPage.clickInfiniteScroll();
+        infiniteScroll.scrolling();
+    }
+
+    @Test
+    public void testJavaScriptAlerts() {
+        JavaScriptAlerts javaScriptAlerts = herokuAppMainPage.clickJavaScriptAlerts();
+        javaScriptAlerts.clickJsAlertButton();
+        javaScriptAlerts.clickJsConfirmButton();
+        javaScriptAlerts.clickPromptButton();
+    }
+
+    @Test
+    public void testKeyPresses() {
+        KeyPresses keyPresses = herokuAppMainPage.clickKeyPresses();
+        keyPresses.sendKeysToInput();
+    }
+
+    @Test
+    public void testLogging() {
+        logger.info("Example log from {}", TestingHerokuApp.class.getSimpleName());
+    }
 }

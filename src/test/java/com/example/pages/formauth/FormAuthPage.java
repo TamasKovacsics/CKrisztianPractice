@@ -20,11 +20,6 @@ public class FormAuthPage extends BasePage {
     private WebElement errorMessage;
 
 
-    public static String username = "tomsmith";
-    public static String password = "SuperSecretPassword!";
-
-    public static String wrongPassword = "admin";
-
     public FormAuthPage(WebDriver driver) {
         super(driver);
     }

@@ -17,7 +17,6 @@ public class BasicAuthPage extends BasePage {
     }
 
     public void authButtonClick() {
-
         driver.get("https://admin:admin@the-internet.herokuapp.com/basic_auth");
     }
 }
