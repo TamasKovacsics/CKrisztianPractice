@@ -13,18 +13,13 @@ import com.example.pages.frames.NestedFrames;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.logging.LoggerFactory;
-import org.slf4j.Logger;
 import testbase.TestBase;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class TestingHerokuApp extends TestBase {
 
-    private HerokuAppMainPage herokuAppMainPage;
+    private com.example.pages.HerokuAppMainPage herokuAppMainPage;
 
     @BeforeEach
     public void startUp() {
@@ -200,7 +195,7 @@ public class TestingHerokuApp extends TestBase {
         hover.clickFirst();
         Assertions.assertTrue(hover.isFirstVisible(), "The cursor is missplaced");
         hover.clickSecond();
-        Assertions.assertFalse(hover.isSecondVisible(), "The cursor is missplaced");
+        Assertions.assertTrue(hover.isSecondVisible(), "The cursor is missplaced");
         hover.clickThird();
         Assertions.assertTrue(hover.isThirdVisible(), "The cursor is missplaced");
     }
