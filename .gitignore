@@ -32,3 +32,4 @@ Practice.iml
 target/maven-status
 target/surefire-reports
 target
+allure-results
