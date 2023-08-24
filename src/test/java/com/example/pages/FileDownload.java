@@ -24,8 +24,6 @@ public class FileDownload extends BasePage {
 
     public void downloadFile() {
         fileLink.click();
-
-        sleep(5000);
     }
 
     public boolean getDownloadedFile() {

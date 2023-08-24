@@ -6,9 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.LoadableComponent;
-
-import java.awt.color.ICC_ColorSpace;
-
 public abstract class BasePage extends LoadableComponent {
     protected WebDriver driver;
 

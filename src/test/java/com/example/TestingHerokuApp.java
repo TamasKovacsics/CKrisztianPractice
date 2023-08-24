@@ -26,7 +26,6 @@ public class TestingHerokuApp extends TestBase {
         driver.get("https://the-internet.herokuapp.com");
         herokuAppMainPage = new HerokuAppMainPage(driver);
     }
-
     @Test
     public void testAddRemoveButton() {
         AddRemoveButtonPage addRemoveButtonPage = herokuAppMainPage.clickAddRemoveLink();

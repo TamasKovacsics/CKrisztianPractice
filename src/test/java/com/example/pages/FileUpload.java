@@ -29,6 +29,7 @@ public class FileUpload extends BasePage {
     public void uploadFile() {
         fileLink.sendKeys(Constants.UPLOAD_PATH);
         submitButton.click();
+        sleep(3000);
     }
 
     public String getPageTitle() {
